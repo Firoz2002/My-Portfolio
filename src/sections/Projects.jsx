@@ -9,7 +9,7 @@ import DemoComputer from '../components/DemoComputer.jsx';
 
 const projectCount = myProjects.length-1;
 
-export default function Projects() {
+export default function Projects({ isLargeDevice }) {
 
   const [projectIndex, setProjectIndex] = useState(0);
   
@@ -72,21 +72,25 @@ export default function Projects() {
             </div>
         </div>
 
-        <div className="border border-black-300 bg-black-200 rounded-lg h-96 md:h-full">
-          <Canvas>
-            <ambientLight intensity={1} />
-            <directionalLight position={[10, 10, 5]} />
+        {
+          (isLargeDevice) ?
+            <div className="border border-black-300 bg-black-200 rounded-lg h-96 md:h-full">
+              <Canvas>
+                <ambientLight intensity={1} />
+                <directionalLight position={[10, 10, 5]} />
 
-            <Center>
-              <Suspense fallback={<CanvasLoader />}>
-                <group scale={2} position={[0, -3, 0]} rotation={[0, -0.1, 0]}>
-                  <DemoComputer texture={currentProject.texture} />
-                </group>
-              </Suspense>
-            </Center>
-            <OrbitControls maxPolarAngle={Math.PI/2} enableZoom={false} />
-          </Canvas>
-        </div>
+                <Center>
+                  <Suspense fallback={<CanvasLoader />}>
+                    <group scale={2} position={[0, -3, 0]} rotation={[0, -0.1, 0]}>
+                      <DemoComputer texture={currentProject.texture} />
+                    </group>
+                  </Suspense>
+                </Center>
+                <OrbitControls maxPolarAngle={Math.PI/2} enableZoom={false} />
+              </Canvas>
+            </div>
+          : null
+        }
       </div>
     </section>
   )

@@ -3,13 +3,15 @@ import Globe from 'react-globe.gl'
 
 import Button from '../components/Button'
 
-export default function About() {
-    const globeRef = useRef();
+export default function About({ isLargeDevice }) {
+    const globeRef = useRef(null);
     const [hasCopied, setHasCopied] = useState(false);
 
     useEffect(() => {
-        globeRef.current.controls().autoRotate = true;
-        globeRef.current.controls().enableZoom = false;
+        if(globeRef.current) {
+            globeRef.current.controls().autoRotate = true;
+            globeRef.current.controls().enableZoom = false;
+        }
     })
 
     const handleCopy = () => {
@@ -55,7 +57,9 @@ export default function About() {
         </div>
 
         <div className="col-span-1 xl:row-span-4">
-            <div className="grid-container">
+            {
+                (isLargeDevice) ? 
+                <div className="grid-container">
                 <div className="rounded-t-3xl w-full sm:h-[326px] h-fit flex justify-center mb-3">
                 <Globe
                     ref={globeRef}
@@ -79,7 +83,9 @@ export default function About() {
                     </p>
                     <Button name="Contact Me" isBeam containerClass="w-full mt-10"/>
                 </div>
-            </div>
+            </div> 
+            : null
+            }
         </div>
 
         <div className="xl:col-span-2 xl:row-span-3">

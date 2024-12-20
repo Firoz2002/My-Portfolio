@@ -14,12 +14,13 @@ import Button from '../components/Button';
 
 import RubixCube from '../components/RubixCube';
 
-export default function Hero() {
+export default function Hero({ isLargeDevice }) {
     const isSmall = useMediaQuery({maxWidth: 440});
     const isMobile = useMediaQuery({maxWidth: 768});
-    const istablet = useMediaQuery({minWidth: 768, maxWidth: 1024});
+    const isTablet = useMediaQuery({minWidth: 768, maxWidth: 1024});
+    const isDesktop = useMediaQuery({minWidth: 1024});
 
-    const sizes = calculateSizes(isSmall, isMobile, istablet);
+    const sizes = calculateSizes(isSmall, isMobile, isTablet);
 
   return (
     <section className="min-h-screen w-full flex flex-col relative" id='home'>
@@ -44,12 +45,16 @@ export default function Hero() {
                 scale={sizes.deskScale}/>
             </HeroCamera>
 
-            <group>
-              <Rings position={sizes.ringPosition} scale={sizes.ringScale} />
-              <RubixCube position={sizes.cubePosition} scale={sizes.cubeScale} />
-              <Target position={sizes.targetPosition} scale={sizes.targetScale} />
-              <ReactLogo position={sizes.reactLogoPosition} scale={sizes.reactLogoScale} />
-            </group>
+            {
+              (isLargeDevice) ? 
+                <group>
+                  <Rings position={sizes.ringPosition} scale={sizes.ringScale} />
+                  <RubixCube position={sizes.cubePosition} scale={sizes.cubeScale} />
+                  <Target position={sizes.targetPosition} scale={sizes.targetScale} />
+                  <ReactLogo position={sizes.reactLogoPosition} scale={sizes.reactLogoScale} />
+                </group> 
+              : null
+            }
 
             <ambientLight intensity={1} />
             <directionalLight position={[10, 10, 10]} intensity={0.5}/>

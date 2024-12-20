@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import { useMediaQuery } from 'react-responsive';
 
 import Hero from './sections/Hero'
 import About from './sections/About'
@@ -9,13 +10,16 @@ import Projects from './sections/Projects'
 import Experience from './sections/Experience'
 
 export default function App() {
+
+  const isLargeDevice = useMediaQuery({minWidth: 768});
+
   return (
     <main className="max-w-7xl mx-auto">
       <Navbar />
-      <Hero />
-      <About />
-      <Projects />
-      <Experience />
+      <Hero isLargeDevice={isLargeDevice} />
+      <About isLargeDevice={isLargeDevice} />
+      <Projects isLargeDevice={isLargeDevice} />
+      <Experience isLargeDevice={isLargeDevice} />
       <Contact />
       <Footer />
     </main>
